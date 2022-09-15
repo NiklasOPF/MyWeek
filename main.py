@@ -1,17 +1,9 @@
-# This is a sample Python script.
-import InputFileReader as inp
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+from InputFileReader import InputFileReader
 
+input_folder = "InputFiles"
+input_filename = "Input.xlsx"
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    inp.read_ex('sd')
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    reader = InputFileReader()
+    df = reader.read_file(input_folder + "/" + input_filename)
+    a=1
