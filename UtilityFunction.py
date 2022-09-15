@@ -2,5 +2,5 @@ class UtilityFunction:
         def __init__(self, parameters):
                 self.params = parameters
 
-        def get_parameters(self):
+        def GetParameters(self):
             return self.params
