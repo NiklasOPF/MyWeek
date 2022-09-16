@@ -1,3 +1,4 @@
+from Calculator import Calculator
 from InputFileReader import InputFileReader
 from PerformanceRecord import PerformanceRecord
 from PerformanceType import PerformanceType
@@ -8,34 +9,28 @@ input_folder = "InputFiles"
 input_filename = "Input.xlsx"
 
 
-
 if __name__ == '__main__':
     # read data
-    reader = InputFileReader()
-    df = reader.ReadPerformanceTypes(input_folder + "/" + input_filename)
+    # reader = InputFileReader()
+    # df = reader.ReadPerformanceTypes(input_folder + "/" + input_filename)
 
     # PARAMETER SETUP
     runningPerformanceType = PerformanceType("hoursSpentRunning", "sports")
     workingPerformanceType = PerformanceType("hoursSpentWorking", "career")
+
+    runningUtilityFun = LinearUtilityFunction(params=[1, 2], performanceType=runningPerformanceType)
+    workingUtilityFun = LinearUtilityFunction(params=[8, 3], performanceType=workingPerformanceType)
+
     performanceRecord1 = PerformanceRecord(time_range=7, performance_metric=2, performance_type=runningPerformanceType)
     performanceRecord2 = PerformanceRecord(time_range=7, performance_metric=2, performance_type=workingPerformanceType)
 
-    runningUtilityFun = LinearUtilityFunction([1, 2], runningPerformanceType)
-    workingUtilityFun = LinearUtilityFunction([8, 3], workingPerformanceType)
-
+    # STRATEGIC PARAMETERIZATION OF UTILITY FUNCTIONS
     performanceRecords = {performanceRecord1, performanceRecord2}
     utilityFunctions = UtilityFunctions({runningUtilityFun, workingUtilityFun})
 
-    # STRATEGIC PARAMETERIZATION OF UTILITY FUNCTIONS
-    #utilityFunctions = UtilityFunctions()
-
     # calculate score
-    overall_score = 0
-    for perfromanceRecord in performanceRecords:
-        utility_function = utilityFunctions.GetUtilityFunction(perfromanceRecord.performance_type)
-        new_score = utility_function.GetUtility(perfromanceRecord.GetPerformanceMetric())
-        overall_score = overall_score + new_score
-
+    calculator = Calculator()
+    overall_score = calculator.CalculateUtility(utilityFunctions, performanceRecords)
     print(overall_score)
     a=1
 
