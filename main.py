@@ -19,13 +19,13 @@ if __name__ == '__main__':
     for (colName, colData) in df.iteritems():
         performanceType = PerformanceType(colData[1], colData[0])
         performanceTypes.add(performanceType)
-        performanceRecords.add(PerformanceRecord(7, colData[2], performanceType))
+        performanceRecords.add(PerformanceRecord(7, colData.iloc[2], performanceType))
 
     # CREATE UTILITY FUNCTIONS
     utilityFunctionsSet = set()
     df2 = reader.ReadUtilityFunctions(input_folder + "/" + input_filename, date="Sunday, 18 September 2022")
     for (colName, colData) in df2.iteritems():
-        array = colData[2].split(", ")
+        array = colData.iloc[2].split(", ")
         name = array[0]
         params = [float(i) for i in array[1:]]
 
