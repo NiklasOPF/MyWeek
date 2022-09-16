@@ -1,9 +1,7 @@
 from InputFileReader import InputFileReader
 from PerformanceRecord import PerformanceRecord
 from PerformanceType import PerformanceType
-from RunningHoursUtility import RunningHoursUtility
 from UtilityFunctions.UtilityFunction import LinearUtilityFunction
-from WorkingHOursUtility import WorkingHoursUtility
 from UtilityFunctions.UtilityFucntions import *
 
 input_folder = "InputFiles"
