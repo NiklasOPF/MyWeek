@@ -11,21 +11,22 @@ class InputFileReader:
         df = pd.read_excel(filename)
         return df
 
-    def ReadPerformanceTypes(self, filename):
-        raise NotImplementedError
-        # Returns all performance types.
-        # For now assumes that there is only one line of specification
+    def ReadUtilityFunctions(self, filename, date):
         df = pd.read_excel(filename, sheet_name=_configuration_sheet_name, header=None)
-        categories = df.iloc[0].dropna().drop_duplicates()
-        a=1
-        return df
+        headers = df.iloc[0:2, 1:]
+        body = (df.iloc[2:]).set_index(0).dropna(how='all')
+        entry = body.loc[date]
 
+        df2 = headers.append(entry, ignore_index = True)
+
+
+
+        return df2
     def ReadPerformanceRecords(self, filename, date):
                 # Returns all performance types.
         # For now assumes that there is only one line of specification
         df = pd.read_excel(filename, sheet_name=_records_sheet_name, header=None)
-        df = df.loc[:, (df.iloc[2] != 'Comment')]
-        df = df.drop(2)
+        df = (df.loc[:, (df.iloc[2] != 'Comment')]).drop(2)
 
         headers = df.iloc[0:2, 1:]
         body = (df.iloc[2:]).set_index(0).dropna(how='all')
