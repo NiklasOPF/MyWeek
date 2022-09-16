@@ -1,4 +1,4 @@
-from UtilityFunction import UtilityFunction
+from UtilityFunctions.UtilityFunction import UtilityFunction
 
 
 class RunningHoursUtility(UtilityFunction):
