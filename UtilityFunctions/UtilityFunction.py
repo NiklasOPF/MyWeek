@@ -19,6 +19,24 @@ Deifines a linear utility function of the form:
         y = a               if x>b
 """
 
+class ScalingUtilityFunction(UtilityFunction):
+    '''' THis constructor exrects list parameters '''
+
+    def __init__(self, param, performanceType):
+        self.a = param[0]
+        self.performanceType = performanceType
+
+    def GetUtility(self, x):
+        if x < 0:
+            return 0
+        return self.a * x
+
+    def GetUtilityFunctionType(self):
+        return "Scaling"
+
+    def GetPerformanceType(self):
+        return self.performanceType
+
 class LinearUtilityFunction(UtilityFunction):
     '''' THis constructor exrects list parameters '''
 
@@ -48,13 +66,13 @@ class DoubleLinearUtilityFunction(UtilityFunction):
         self.b2 = params[3]
         self.performanceType = performanceType
 
-    def GetUtility(self, hours):
-        if hours < 0:
+    def GetUtility(self, x):
+        if x < 0:
             return 0
-        if hours < self.b1:
-            return hours * self.a / self.b
-        if hours < self.b2:
-            self.a1 + (self.a2 - self.a1) / (self.b2 - self.b1) * (hours - self.b1)
+        if x < self.b1:
+            return x * self.a1 / self.b1
+        if x < self.b2:
+            self.a1 + (self.a2 - self.a1) / (self.b2 - self.b1) * (x - self.b1)
         return self.a2
 
     def GetUtilityFunctionType(self):
