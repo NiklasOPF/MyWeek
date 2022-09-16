@@ -10,23 +10,29 @@ input_filename = "Input.xlsx"
 
 
 if __name__ == '__main__':
-    # read data
-    # reader = InputFileReader()
-    # df = reader.ReadPerformanceTypes(input_folder + "/" + input_filename)
+    # READ DATA
+    reader = InputFileReader()
+    df = reader.ReadPerformanceRecords(input_folder + "/" + input_filename, date="Sunday, 4 September 2022")
+
+    # CREATE PERFORMANCE RECORDS FORM DATAFRAME
+    performanceRecords = set()
+    performanceTypes = set()
+    for (colName, colData) in df.iteritems():
+        performanceType = PerformanceType(colData[1], colData[0])
+        performanceTypes.add(performanceType)
+        performanceRecords.add(PerformanceRecord(7, colData[2], performanceType))
 
     # PARAMETER SETUP
-    runningPerformanceType = PerformanceType("hoursSpentRunning", "sports")
-    workingPerformanceType = PerformanceType("hoursSpentWorking", "career")
+    familyTalkUtilityFun = LinearUtilityFunction(params=[1, 2], performanceType=PerformanceType('HoursSpentTalkingToFamily', 'Relationships'))
+    youtubeUploadUtilityFun = LinearUtilityFunction(params=[1, 2], performanceType=PerformanceType('MinutesOfUploadedContent', 'Youtube'))
+    hoursTrainingUtilityFun = LinearUtilityFunction(params=[1, 2], performanceType=PerformanceType('HoursTraining', 'PhysicalActivities'))
+    applicationSubmittedUtilityFun = LinearUtilityFunction(params=[1, 2], performanceType=PerformanceType('ApplicationsSubmitted', 'Work'))
+    hoursReadingUtilityFun = LinearUtilityFunction(params=[1, 2], performanceType=PerformanceType('HoursSpentReading', 'Learning'))
+    adHocUtilityFun = LinearUtilityFunction(params=[1, 2], performanceType=PerformanceType('ad-hoc', 'Relationships'))
+    hoursSalsaUtilityFun = LinearUtilityFunction(params=[1, 2], performanceType=PerformanceType('HoursOfSalsa', 'PhysicalActivities'))
+    hoursFightingUtilityFun = LinearUtilityFunction(params=[1, 2], performanceType=PerformanceType('HoursFighting', 'PhysicalActivities'))
 
-    runningUtilityFun = LinearUtilityFunction(params=[1, 2], performanceType=runningPerformanceType)
-    workingUtilityFun = LinearUtilityFunction(params=[8, 3], performanceType=workingPerformanceType)
-
-    performanceRecord1 = PerformanceRecord(time_range=7, performance_metric=2, performance_type=runningPerformanceType)
-    performanceRecord2 = PerformanceRecord(time_range=7, performance_metric=2, performance_type=workingPerformanceType)
-
-    # STRATEGIC PARAMETERIZATION OF UTILITY FUNCTIONS
-    performanceRecords = {performanceRecord1, performanceRecord2}
-    utilityFunctions = UtilityFunctions({runningUtilityFun, workingUtilityFun})
+    utilityFunctions = UtilityFunctions({ familyTalkUtilityFun, youtubeUploadUtilityFun, hoursTrainingUtilityFun, applicationSubmittedUtilityFun, hoursReadingUtilityFun, adHocUtilityFun, hoursSalsaUtilityFun, hoursFightingUtilityFun })
 
     # calculate score
     calculator = Calculator()

@@ -1,6 +1,8 @@
 import pandas as pd
 
 _configuration_sheet_name = 'Configuration' # used to identify the excel sheet of a configuration.
+_records_sheet_name = 'Records' # used to identify the excel sheet of a configuration.
+
 class InputFileReader:
     def __init__(self):
         self.a = 1
@@ -10,15 +12,28 @@ class InputFileReader:
         return df
 
     def ReadPerformanceTypes(self, filename):
+        raise NotImplementedError
         # Returns all performance types.
         # For now assumes that there is only one line of specification
         df = pd.read_excel(filename, sheet_name=_configuration_sheet_name, header=None)
-
         categories = df.iloc[0].dropna().drop_duplicates()
-
-
         a=1
-
-
         return df
+
+    def ReadPerformanceRecords(self, filename, date):
+                # Returns all performance types.
+        # For now assumes that there is only one line of specification
+        df = pd.read_excel(filename, sheet_name=_records_sheet_name, header=None)
+        df = df.loc[:, (df.iloc[2] != 'Comment')]
+        df = df.drop(2)
+
+        headers = df.iloc[0:2, 1:]
+        body = (df.iloc[2:]).set_index(0).dropna(how='all')
+        entry = body.loc[date]
+
+        df2 = headers.append(entry, ignore_index = True)
+
+
+        return df2
+
 
