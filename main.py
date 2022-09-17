@@ -5,11 +5,13 @@ from PerformanceType import PerformanceType
 from UtilityFunctions.UtilityFunction import LinearUtilityFunction, UtilityFunction, DoubleLinearUtilityFunction, \
     ScalingUtilityFunction
 from UtilityFunctions.UtilityFucntions import *
+import pandas as pd
 
 input_folder = "InputFiles"
 output_folder = "OutputFiles"
 input_filename = "Input.xlsx"
-performance_date = "Sunday, 4 September 2022"
+performance_date = pd.to_datetime("Sunday, 4 September 2022")
+performance_date_test = pd.to_datetime("2022-09-10")
 configuration_date = "Sunday, 18 September 2022"
 output_sheet_name = 'PerformanceReport' # Used to summarize the
 
@@ -50,11 +52,11 @@ if __name__ == '__main__':
     # CALCULATE SCORES
     calculator = Calculator()
     overall_score = calculator.CalculateOverallUtility(utilityFunctions, performanceRecords)
-    report = calculator.CalculateUtilityReport(utilityFunctions, performanceRecords, performance_date)
+    reportRecord = calculator.CalculateUtilityReport(utilityFunctions, performanceRecords, performance_date_test)
 
     # SCORES TO EXCEL
-    #writer.write_file(report, output_folder + "/PerformanceReport.xlsx")
-    io.WriteExcel(report, output_folder + "/Output.xlsx", output_sheet_name)
+    #io.WriteExcel(reportRecord, output_folder + "/Output.xlsx", output_sheet_name)
+    io.SavePerformanceReport(reportRecord, output_folder + "/Output.xlsx")
 
 
     print(overall_score)
