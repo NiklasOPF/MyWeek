@@ -13,16 +13,13 @@ class Calculator:
 
     def CalculateUtilityReport(self, utilityFunctions, performanceRecords, date):
         overall_score = 0
-        df = pd.DataFrame()
-        entry = ["Date", 'Date', date]
-        df = pd.concat([df, pd.DataFrame(entry)], axis=1)
+        df = pd.concat([pd.DataFrame(), pd.DataFrame([date], columns=['Date - Date'])], axis=1)
+        df = df.set_index('Date - Date')
         for perfromanceRecord in performanceRecords:
             performanceType = perfromanceRecord.GetPerformanceType()
             utility_function = utilityFunctions.GetUtilityFunction(performanceType)
             new_score = utility_function.GetUtility(perfromanceRecord.GetPerformanceMetric())
-            entry = [performanceType.GetCategory(), performanceType.GetName(), new_score]
             overall_score = overall_score + new_score
-            df = pd.concat([df, pd.DataFrame(entry)], axis=1)
-        entry = ["Total", 'Total', overall_score]
-        df = pd.concat([df, pd.DataFrame(entry)], axis=1)
+            df[performanceType.GetCategory() + ' - ' + performanceType.GetName()] = [new_score]
+        df['Total'] = [overall_score]
         return df
