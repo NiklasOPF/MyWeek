@@ -12,6 +12,8 @@ output_folder = "OutputFiles"
 input_filename = "Input.xlsx"
 performance_date = "Sunday, 4 September 2022"
 configuration_date = "Sunday, 18 September 2022"
+output_sheet_name = 'PerformanceReport' # Used to summarize the
+
 
 if __name__ == '__main__':
     # READ DATA
@@ -53,7 +55,8 @@ if __name__ == '__main__':
 
     # SCORES TO EXCEL
     writer = OutputFileWriter()
-    writer.write_file(report, output_folder + "/PerformanceReport.xlsx")
+    #writer.write_file(report, output_folder + "/PerformanceReport.xlsx")
+    writer.WriteExcel(report, output_folder + "/Output.xlsx", output_sheet_name)
 
 
     print(overall_score)
