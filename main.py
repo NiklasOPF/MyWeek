@@ -1,6 +1,5 @@
 from Calculator import Calculator
-from InputFileReader import InputFileReader
-from OutputFileWriter import OutputFileWriter
+from IO import IO
 from PerformanceRecord import PerformanceRecord
 from PerformanceType import PerformanceType
 from UtilityFunctions.UtilityFunction import LinearUtilityFunction, UtilityFunction, DoubleLinearUtilityFunction, \
@@ -17,8 +16,8 @@ output_sheet_name = 'PerformanceReport' # Used to summarize the
 
 if __name__ == '__main__':
     # READ DATA
-    reader = InputFileReader()
-    df = reader.ReadPerformanceRecords(input_folder + "/" + input_filename, date=performance_date)
+    io = IO()
+    df = io.ReadPerformanceRecords(input_folder + "/" + input_filename, date=performance_date)
 
     # CREATE PERFORMANCE RECORDS FORM DATAFRAME
     performanceRecords = set()
@@ -30,7 +29,7 @@ if __name__ == '__main__':
 
     # CREATE UTILITY FUNCTIONS
     utilityFunctionsSet = set()
-    df2 = reader.ReadUtilityFunctions(input_folder + "/" + input_filename, date=configuration_date)
+    df2 = io.ReadUtilityFunctions(input_folder + "/" + input_filename, date=configuration_date)
     for (colName, colData) in df2.iteritems():
         try:
             array = colData.iloc[2].split(", ")
@@ -54,9 +53,8 @@ if __name__ == '__main__':
     report = calculator.CalculateUtilityReport(utilityFunctions, performanceRecords, performance_date)
 
     # SCORES TO EXCEL
-    writer = OutputFileWriter()
     #writer.write_file(report, output_folder + "/PerformanceReport.xlsx")
-    writer.WriteExcel(report, output_folder + "/Output.xlsx", output_sheet_name)
+    io.WriteExcel(report, output_folder + "/Output.xlsx", output_sheet_name)
 
 
     print(overall_score)

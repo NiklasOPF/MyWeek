@@ -2,8 +2,9 @@ import pandas as pd
 
 _configuration_sheet_name = 'Configuration' # used to identify the excel sheet of a configuration.
 _records_sheet_name = 'Records' # used to identify the excel sheet of a configuration.
+_output_sheet_name = 'PerformanceReport' # Used to summarize the
 
-class InputFileReader:
+class IO:
     def __init__(self):
         self.a = 1
     def read_file(self, filename):
@@ -26,5 +27,14 @@ class InputFileReader:
         body = (df.iloc[2:]).set_index(0).dropna(how='all')
         entry = body.loc[date]
         return pd.concat([headers, pd.DataFrame(entry).T], axis=0)
+
+    def write_file(self, df, fileName):
+        # Use a breakpoint in the code line below to debug your script.
+        df.to_excel(fileName, sheet_name=_output_sheet_name)
+
+
+    def WriteExcel(self, df, filename, sheetname):
+        with pd.ExcelWriter(filename, engine="openpyxl", mode="a", if_sheet_exists="replace") as writer:
+            df.to_excel(writer, sheetname, index=False)
 
 
