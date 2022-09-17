@@ -1,8 +1,28 @@
+import pandas as pd
+
+
 class Calculator:
-    def CalculateUtility(self, utilityFunctions, performanceRecords):
+    def CalculateOverallUtility(self, utilityFunctions, performanceRecords):
         overall_score = 0
         for perfromanceRecord in performanceRecords:
             utility_function = utilityFunctions.GetUtilityFunction(perfromanceRecord.performance_type)
             new_score = utility_function.GetUtility(perfromanceRecord.GetPerformanceMetric())
             overall_score = overall_score + new_score
         return overall_score
+
+
+    def CalculateUtilityReport(self, utilityFunctions, performanceRecords, date):
+        overall_score = 0
+        df = pd.DataFrame()
+        entry = ["Date", 'Date', date]
+        df = pd.concat([df, pd.DataFrame(entry)], axis=1)
+        for perfromanceRecord in performanceRecords:
+            performanceType = perfromanceRecord.GetPerformanceType()
+            utility_function = utilityFunctions.GetUtilityFunction(performanceType)
+            new_score = utility_function.GetUtility(perfromanceRecord.GetPerformanceMetric())
+            entry = [performanceType.GetCategory(), performanceType.GetName(), new_score]
+            overall_score = overall_score + new_score
+            df = pd.concat([df, pd.DataFrame(entry)], axis=1)
+        entry = ["Total", 'Total', overall_score]
+        df = pd.concat([df, pd.DataFrame(entry)], axis=1)
+        return df

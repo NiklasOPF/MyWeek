@@ -9,3 +9,6 @@ class PerformanceRecord:
 
     def GetPerformanceMetric(self):
         return self.performance_metric
+
+    def GetPerformanceType(self):
+        return self.performance_type

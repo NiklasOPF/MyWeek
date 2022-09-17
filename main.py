@@ -1,5 +1,6 @@
 from Calculator import Calculator
 from InputFileReader import InputFileReader
+from OutputFileWriter import OutputFileWriter
 from PerformanceRecord import PerformanceRecord
 from PerformanceType import PerformanceType
 from UtilityFunctions.UtilityFunction import LinearUtilityFunction, UtilityFunction, DoubleLinearUtilityFunction, \
@@ -7,13 +8,15 @@ from UtilityFunctions.UtilityFunction import LinearUtilityFunction, UtilityFunct
 from UtilityFunctions.UtilityFucntions import *
 
 input_folder = "InputFiles"
+output_folder = "OutputFiles"
 input_filename = "Input.xlsx"
-
+performance_date = "Sunday, 4 September 2022"
+configuration_date = "Sunday, 18 September 2022"
 
 if __name__ == '__main__':
     # READ DATA
     reader = InputFileReader()
-    df = reader.ReadPerformanceRecords(input_folder + "/" + input_filename, date="Sunday, 4 September 2022")
+    df = reader.ReadPerformanceRecords(input_folder + "/" + input_filename, date=performance_date)
 
     # CREATE PERFORMANCE RECORDS FORM DATAFRAME
     performanceRecords = set()
@@ -25,7 +28,7 @@ if __name__ == '__main__':
 
     # CREATE UTILITY FUNCTIONS
     utilityFunctionsSet = set()
-    df2 = reader.ReadUtilityFunctions(input_folder + "/" + input_filename, date="Sunday, 18 September 2022")
+    df2 = reader.ReadUtilityFunctions(input_folder + "/" + input_filename, date=configuration_date)
     for (colName, colData) in df2.iteritems():
         try:
             array = colData.iloc[2].split(", ")
@@ -45,6 +48,13 @@ if __name__ == '__main__':
 
     # CALCULATE SCORES
     calculator = Calculator()
-    overall_score = calculator.CalculateUtility(utilityFunctions, performanceRecords)
+    overall_score = calculator.CalculateOverallUtility(utilityFunctions, performanceRecords)
+    report = calculator.CalculateUtilityReport(utilityFunctions, performanceRecords, performance_date)
+
+    # SCORES TO EXCEL
+    writer = OutputFileWriter()
+    writer.write_file(report, output_folder + "/PerformanceReport.xlsx")
+
+
     print(overall_score)
 

@@ -11,3 +11,10 @@ class PerformanceType:
             if self.category == performanceType2.category:
                 return True
         return False
+
+
+    def GetName(self):
+        return self.name
+
+    def GetCategory(self):
+        return self.category
