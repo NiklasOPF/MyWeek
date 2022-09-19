@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import numpy as np
 
 class UtilityFunction(ABC):
     @abstractmethod
@@ -27,6 +28,8 @@ class ScalingUtilityFunction(UtilityFunction):
         self.performanceType = performanceType
 
     def GetUtility(self, x):
+        if np.isnan(x):
+            return 0
         if x < 0:
             return 0
         return self.a * x
@@ -45,11 +48,13 @@ class LinearUtilityFunction(UtilityFunction):
         self.b = params[1]
         self.performanceType = performanceType
 
-    def GetUtility(self, hours):
-        if hours < 0:
+    def GetUtility(self, x):
+        if np.isnan(x):
             return 0
-        if hours < self.b:
-            return hours * self.a / self.b
+        if x < 0:
+            return 0
+        if x < self.b:
+            return x * self.a / self.b
         return self.a
 
     def GetUtilityFunctionType(self):
@@ -67,6 +72,8 @@ class DoubleLinearUtilityFunction(UtilityFunction):
         self.performanceType = performanceType
 
     def GetUtility(self, x):
+        if np.isnan(x):
+            return 0
         if x < 0:
             return 0
         if x < self.b1:
