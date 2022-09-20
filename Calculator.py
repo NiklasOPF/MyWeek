@@ -14,6 +14,7 @@ class Calculator:
     def CalculateUtilityReport(self, utilityFunctions, performanceRecords, date):
         overall_score = 0
         df = pd.concat([pd.DataFrame(), pd.DataFrame([date], columns=['Date - Date'])], axis=1)
+        df['Date - Date'] = pd.to_datetime(df['Date - Date'])
         df = df.set_index('Date - Date')
         for perfromanceRecord in performanceRecords:
             performanceType = perfromanceRecord.GetPerformanceType()
