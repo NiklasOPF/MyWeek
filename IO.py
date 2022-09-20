@@ -24,12 +24,13 @@ class IO:
     ################################### WRITE FUNCTIONS ###################################
 
     def WriteDataFrameToExcel(self, df, fileName, sheetname):
+        #TODO: first initiate a check if the file already exists. if not, then generate a new file
         with pd.ExcelWriter(fileName, engine="openpyxl", mode="a", if_sheet_exists="replace") as writer:
             df.to_excel(writer, sheetname)
 
-    def SavePerformanceReport(self, perfromanceReportRecord, fileName):
+    def SavePerformanceReport(self, perfromanceReportRecord, inputFileName, outputFileName):
         # Read existing performance report
-        performanceReport = self.ReadSheetWithSingleHeader(fileName, perormance_report_sheet_name)
+        performanceReport = self.ReadSheetWithSingleHeader(inputFileName, perormance_report_sheet_name)
 
         # Merge existing performance report with new record
         df = perfromanceReportRecord.combine_first(performanceReport).sort_index()
@@ -38,7 +39,7 @@ class IO:
         df.insert(len(df.columns), "Total", column_to_move)
         df.index.name = 'Date'
 
-        self.WriteDataFrameToExcel(df, fileName, perormance_report_sheet_name)
+        self.WriteDataFrameToExcel(df, outputFileName, perormance_report_sheet_name)
 
     ################################### OUTDATED METHODS ###################################
 
