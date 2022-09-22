@@ -3,7 +3,7 @@ from IO import IO
 from PerformanceRecord import PerformanceRecord
 from PerformanceType import PerformanceType
 from UtilityFunctions.UtilityFunction import LinearUtilityFunction, UtilityFunction, DoubleLinearUtilityFunction, \
-    ScalingUtilityFunction
+    ScalingUtilityFunction, NormalCDFUtilityFunction
 from UtilityFunctions.UtilityFucntions import *
 import pandas as pd
 
