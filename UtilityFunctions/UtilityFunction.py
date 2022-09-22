@@ -1,5 +1,7 @@
 from abc import ABC, abstractmethod
 import numpy as np
+from scipy.stats import norm
+
 
 class UtilityFunction(ABC):
     @abstractmethod
@@ -84,6 +86,27 @@ class DoubleLinearUtilityFunction(UtilityFunction):
 
     def GetUtilityFunctionType(self):
         return "DoubleLinear"
+
+    def GetPerformanceType(self):
+        return self.performanceType
+
+
+class NormalCDFUtilityFunction(UtilityFunction):
+    def __init__(self, params, performanceType):
+        self.a = params[0] # represents the max utility in the asymptotic limit
+        self.b = params[1] # represents the point where 50% of the max utility is reached
+        self.performanceType = performanceType
+
+    def GetUtility(self, x):
+        if np.isnan(x):
+            return 0
+        if x < 0:
+            return 0
+        if x > 0:
+            return self.a * 2 * (norm.cdf(0.675 * x / self.b)-0.5)
+
+    def GetUtilityFunctionType(self):
+        return "NormalCDF"
 
     def GetPerformanceType(self):
         return self.performanceType
