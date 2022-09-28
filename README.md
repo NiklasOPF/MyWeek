@@ -29,7 +29,7 @@ Note that there are several tabs in the file.
 ### 1.3.1. Specifying the Records tab
 The records tab has the following appearance: 
 <img width="1280" alt="image" src="https://user-images.githubusercontent.com/44125052/192759235-adc20bfb-b8d2-4ab0-9038-a578a339171d.png">
-* The header has the form "<Category> - <KPI>"
+* The header has the form "Category - KPI"
   * The Category is used to group several KPIs, which involve similar characteristics or that are related to the same goal, together
   * The KPI uniquely identifies the record type
 * The entries are numbers
