@@ -34,6 +34,7 @@ The records tab has the following appearance:
   * The KPI uniquely identifies the record type
 * The entries are numbers
 * Attributes that have ben decomissioned over time should not be removed from the file. Instead they should be filled with "-"
+* To avoid that attributes are accidentally left unfilled, the tool does not accept blank values in the populated excel rows. Therefore, in the event that no progress was made on a goal in a given week, the corresponding attribute should explicitly be set to 0.
 
 ### 1.3.2. Specifying the Comments tab
 The Comments tab has the following appearance: 
