@@ -51,7 +51,7 @@ The Configuration tab has the following appearance:
   * The KPI uniquely identifies the record type
 * The entries specify the utility functions for each KPI according to the format outlined in the utility functions document: https://niklasopf.atlassian.net/wiki/spaces/WEEK/pages/68452357/Utility+funcitons
 * Attributes that have ben decomissioned over time should not be removed from the file. Instead they should be filled with "-"
-* This sheet is allowed to have blank values
+* To avoid that attributes are accidentally left unfilled, the tool does not accept blank values in the populated excel rows. Therefore, if the utility function is not updated in a given, the corresponding field should be copied from the last week.
 
 
 ### 1.3.4. Specifying the PerformanceReport tab
