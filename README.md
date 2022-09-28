@@ -27,7 +27,22 @@ Note that there are several tabs in the file.
 * PerformanceReport contains the output from the tool with all the copring included
 
 ### Specifying the Records tab
-The records tab has...
+The records tab has the following appearance: 
+<img width="1280" alt="image" src="https://user-images.githubusercontent.com/44125052/192759235-adc20bfb-b8d2-4ab0-9038-a578a339171d.png">
+
+
+### Specifying the Comments tab
+The Comments tab has the following appearance: 
+<img width="1280" alt="image" src="https://user-images.githubusercontent.com/44125052/192759634-efe5c8c4-8bd6-42c3-b4af-ac9dea7fea2c.png">
+
+
+### Specifying the Configuration tab
+The Configuration tab has the following appearance: 
+<img width="1280" alt="image" src="https://user-images.githubusercontent.com/44125052/192759688-8c5d3e22-c8a7-4da2-883b-e8f4b7c9a1af.png">
+
+
+### Specifying the PerformanceReport tab
+The PerformanceReport tab is configured automatically by the tool
 
 
 # Running the tool
