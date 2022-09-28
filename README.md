@@ -17,14 +17,11 @@ The tool uses utility fucntions to score your progress throughout a week. Utilit
 * The list of available utility functions can be found here: https://niklasopf.atlassian.net/l/cp/Upn7Fx1t
 
 ## 1.3. Formating the input file
-Once the KPIs and utility functions have been decided on, it is time to specify the input file. The input file has the followign appearance:
-<img width="1280" alt="image" src="https://user-images.githubusercontent.com/44125052/192748814-67f47138-5f51-495d-ae2e-68e6d2bad263.png">
-
-Note that there are several tabs in the file. 
-* Records specifies your performance on a given week by means of the KPIs
-* Comments allows you to comment on a particular result. This is not leveraged for any claculations but may be insightful whilst looking back on past record entries
-* UtilityFunctions specifies the utility funciton that goes together with a certain KPI
-* PerformanceReport contains the output from the tool with all the copring included
+Once the KPIs and utility functions have been decided on, it is time to specify the input file. The input file has the following tabs: 
+* **Records:** specifies your performance on a given week by means of the KPIs
+* **Comments:** allows you to comment on a particular result. This is not leveraged for any claculations but may be insightful whilst looking back on past record entries
+* **UtilityFunctions:** specifies the utility funciton that goes together with a certain KPI
+* **PerformanceReport:** contains the output from the tool with all the copring included
 
 ### 1.3.1. Specifying the Records tab
 The records tab has the following appearance: 
