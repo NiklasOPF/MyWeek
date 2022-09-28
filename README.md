@@ -35,7 +35,7 @@ The records tab has the following appearance:
 
 ### 1.3.2. Specifying the Comments tab
 The Comments tab has the following appearance: 
-<img width="1280" alt="image" src="https://user-images.githubusercontent.com/44125052/192759634-efe5c8c4-8bd6-42c3-b4af-ac9dea7fea2c.png">
+<img width="1280" alt="image" src="https://user-images.githubusercontent.com/44125052/192815076-9043a135-1615-42bc-9f73-4ee16ce44656.png">
 * The header has the form "Category - KPI"
   * The Category is used to group several KPIs, which involve similar characteristics or that are related to the same goal, together
   * The KPI uniquely identifies the record type
