@@ -25,7 +25,7 @@ Once the KPIs and utility functions have been decided on, it is time to specify 
 
 ### 1.3.1. Specifying the Records tab
 The records tab has the following appearance: 
-<img width="1280" alt="image" src="https://user-images.githubusercontent.com/44125052/192759235-adc20bfb-b8d2-4ab0-9038-a578a339171d.png">
+<img width="1280" alt="image" src="https://user-images.githubusercontent.com/44125052/192814475-baefaa93-0ef2-4f4d-ba1d-1ca8944d8e3a.png">
 * The header has the form "Category - KPI"
   * The Category is used to group several KPIs, which involve similar characteristics or that are related to the same goal, together
   * The KPI uniquely identifies the record type
