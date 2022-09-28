@@ -25,8 +25,10 @@ if __name__ == '__main__':
     performanceTypes = set()
     for (colName, colData) in df.iteritems():
         performanceType = PerformanceType(colName.split(" - ")[1], colName.split(" - ")[0]) #PerformanceType(colData[1], colData[0])
-        performanceTypes.add(performanceType)
-        performanceRecords.add(PerformanceRecord(7, colData[performance_date_string], performanceType))
+        performanceMetric = colData[performance_date_string]
+        if performanceMetric != "-":
+            performanceTypes.add(performanceType)
+            performanceRecords.add(PerformanceRecord(7, performanceMetric, performanceType))
 
     # CREATE UTILITY FUNCTIONS
     utilityFunctionsSet = set()
@@ -45,8 +47,10 @@ if __name__ == '__main__':
                 utilityFunctionsSet.add(DoubleLinearUtilityFunction(params, PerformanceType(names[1], names[0])))
             case "Scaling":
                 utilityFunctionsSet.add(ScalingUtilityFunction(params, PerformanceType(names[1], names[0])))
+            case "-":
+                pass
             case _:
-                raise NotImplementedError("no utility function of the specified type")
+                raise NotImplementedError("No utility function of the specified type: '" + array[0] +"'")
     utilityFunctions = UtilityFunctions(utilityFunctionsSet)
 
     # CALCULATE SCORES
