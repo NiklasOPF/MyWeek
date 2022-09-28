@@ -1,5 +1,8 @@
 # week-tracker
-This tool allows you to 
+This tool is complementary to the dreamlinign template outlined here: https://niklasopf.github.io/
+It shifts focus away form the achievement of the long-term overarching goals that you are progressing towards adn redirects it to the small battles we all fight on a daily basis. By tracking your progression along a set of KPIs (Key Performance Indicators), it allows you to: 
+* Monitor your progress toward goals that you have set for yourself
+* Prioritize more effectively when it comes to where you spend your time
 
 # Initial setup
 The tool acceps an input file with a particular format. A guide on specifyign the appropriate format can be found here:...
