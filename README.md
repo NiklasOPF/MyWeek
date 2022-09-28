@@ -5,10 +5,30 @@ It shifts focus away form the achievement of the long-term overarching goals tha
 * Prioritize more effectively when it comes to where you spend your time
 
 # Initial setup
-The tool acceps an input file with a particular format. A guide on specifyign the appropriate format can be found here:...
+Whilst the wekly usage of the tool is extremely lightweight and fast, it does require some initial configuration before it can trck your progress.
+## 1. Defining your goals
+Keeping track of and maintaining your high-level objectives is most easily done with the dreamlining template. Once you have a clear view of the goaols you would like to pursue, you need to define KPIs for those goals. I would recomend to track something between 5-10 KPIs per week. A good KPI is:
+* Agnostic to external effects
+* Easy to measure
+* Correlated to the long-term resuts you want to attain
 
-## Formating the input file
+## 2. Defining utility functions
+The tool uses utility fucntions to score your progress throughout a week. Utility functions need to be defined for the different KPIs that you have specified. 
+* The list of available utility functions can be found here: https://niklasopf.atlassian.net/l/cp/Upn7Fx1t
+
+## 3. Formating the input file
+Once the KPIs and utility functions have been decided on, it is time to specify the input file. The input file has the followign appearance:
 <img width="1280" alt="image" src="https://user-images.githubusercontent.com/44125052/192748814-67f47138-5f51-495d-ae2e-68e6d2bad263.png">
+
+Note that there are several tabs in the file. 
+* Records specifies your performance on a given week by means of the KPIs
+* Comments allows you to comment on a particular result. This is not leveraged for any claculations but may be insightful whilst looking back on past record entries
+* UtilityFunctions specifies the utility funciton that goes together with a certain KPI
+* PerformanceReport contains the output from the tool with all the copring included
+
+### Specifying the Records tab
+The records tab has...
+
 
 # Running the tool
 The tool is run by performing the following steps in sequence: 
