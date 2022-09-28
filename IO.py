@@ -16,10 +16,16 @@ class IO:
         return inputDF.set_index('Date').dropna(how='all')
 
     def ReadUtilityFunctions(self, fileName):
-        return self.ReadSheetWithSingleHeader(fileName, sheetName=_configuration_sheet_name)
+        df = self.ReadSheetWithSingleHeader(fileName, sheetName=_configuration_sheet_name)
+        if df.isnull().values.any():
+            raise ValueError("Configuration tab of the input dataframe contains empty cells")
+        return df
 
     def ReadPerformanceRecords(self, fileName, date):
-        return self.ReadSheetWithSingleHeader(fileName, sheetName=_records_sheet_name)
+        df = self.ReadSheetWithSingleHeader(fileName, sheetName=_records_sheet_name)
+        if df.isnull().values.any():
+            raise ValueError("Records tab of the input dataframe contains empty cells")
+        return df
 
     ################################### WRITE FUNCTIONS ###################################
 
