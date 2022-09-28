@@ -45,8 +45,10 @@ if __name__ == '__main__':
                 utilityFunctionsSet.add(DoubleLinearUtilityFunction(params, PerformanceType(names[1], names[0])))
             case "Scaling":
                 utilityFunctionsSet.add(ScalingUtilityFunction(params, PerformanceType(names[1], names[0])))
+            case "-":
+                pass
             case _:
-                raise NotImplementedError("no utility function of the specified type")
+                raise NotImplementedError("No utility function of the specified type: '" + array[0] +"'")
     utilityFunctions = UtilityFunctions(utilityFunctionsSet)
 
     # CALCULATE SCORES
