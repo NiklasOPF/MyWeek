@@ -7,13 +7,15 @@ from UtilityFunctions.UtilityFunction import LinearUtilityFunction, UtilityFunct
 from UtilityFunctions.UtilityFucntions import *
 import pandas as pd
 
-input_folder = "InputFiles"
-output_folder = "OutputFiles"
+# DYNAMIC CONFIGURATION PARAMETERS
 input_filename = "WeekTracker.xlsx" #"Input.xlsx"
 output_filename = "WeekTracker.xlsx" #"Output.xlsx"
 performance_date_string = "Sunday, 18 September 2022"
-#performance_date_test = pd.to_datetime("2022-09-10")
 configuration_date = "Sunday, 18 September 2022"
+
+# STATIC CONFIGURATION PARAMETERS
+input_folder = "InputFiles"
+output_folder = "OutputFiles"
 
 if __name__ == '__main__':
     # READ DATA
@@ -61,4 +63,3 @@ if __name__ == '__main__':
     # SCORES TO EXCEL
     io.SavePerformanceReport(reportRecord, input_folder + "/" + input_filename, output_folder + "/" + output_filename)
     print("The overall score for " + performance_date_string + " was: " + str(overall_score))
-
