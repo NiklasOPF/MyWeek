@@ -8,13 +8,14 @@ from UtilityFunctions.UtilityFucntions import *
 import pandas as pd
 
 # DYNAMIC CONFIGURATION PARAMETERS
-input_filename = "WeekTracker.xlsx"
-output_filename = "WeekTracker.xlsx"
+input_filename = "MyWeek.xlsx"
+output_filename = "MyWeek.xlsx"
 date_string = "Sunday, 18 September 2022"
 
 # STATIC CONFIGURATION PARAMETERS
 input_folder = "InputFiles"
 output_folder = "OutputFiles"
+
 
 if __name__ == '__main__':
     # CONFIGURATION PARAMETER QUALITY CHECK
@@ -25,12 +26,14 @@ if __name__ == '__main__':
 
     # READ DATA
     io = IO()
-    df = io.ReadPerformanceRecords(input_folder + "/" + input_filename)
+    recordDF = io.ReadPerformanceRecords(input_folder + "/" + input_filename)
+    configurationDF = io.ReadUtilityFunctions(input_folder + "/" + input_filename)
+    io.CheckCompatibilityBetweenReadDFs(recordDF, configurationDF)
 
     # CREATE PERFORMANCE RECORDS FORM DATAFRAME
     performanceRecords = set()
     performanceTypes = set()
-    for (colName, colData) in df.iteritems():
+    for (colName, colData) in recordDF.iteritems():
         performanceType = PerformanceType(colName.split(" - ")[1], colName.split(" - ")[0]) #PerformanceType(colData[1], colData[0])
         try:
             performanceMetric = colData[date_string]
@@ -43,8 +46,7 @@ if __name__ == '__main__':
 
     # CREATE UTILITY FUNCTIONS
     utilityFunctionsSet = set()
-    df2 = io.ReadUtilityFunctions(input_folder + "/" + input_filename)#, date=configuration_date)
-    for (colName, colData) in df2.iteritems():
+    for (colName, colData) in configurationDF.iteritems():
         try:
             array = colData[date_string].split(", ")
         except:

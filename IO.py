@@ -58,7 +58,14 @@ class IO:
                         raise ValueError("input filed at index [" + str(rowIndex) + ", " + str(
                             columnIndex) + "] has the value: " + str(value) + ". This is not an allowed input.")
 
-
+    def CheckCompatibilityBetweenReadDFs(self, records, configuration):
+        # 1. ENSURE DIMENSIONS OF DFs are the same
+        if records.shape != configuration.shape:
+            raise RuntimeError("The shape of the records sheet is: " + str(records.shape) + ", whereas the shape of the configuration sheet is: " + str(configuration.shape) + ". Please ensure that the number of populated columns and rows match.")
+        # 2. ENSURE THAT THE COLUMN NAMES ARE THE SAME
+        if not configuration.columns.equals(records.columns):
+            outerJoin = set(configuration.columns) ^ set(records.columns)
+            raise RuntimeError("The column names in the records sheet does not match the column names in the configuration sheet. Specifically, there is a non-overlap betwen: " + str(outerJoin) + ". Please ensure that the columns are equal")
 
     ################################### OUTDATED METHODS ###################################
 
