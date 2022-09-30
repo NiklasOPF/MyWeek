@@ -10,8 +10,7 @@ import pandas as pd
 # DYNAMIC CONFIGURATION PARAMETERS
 input_filename = "WeekTracker.xlsx" #"Input.xlsx"
 output_filename = "WeekTracker.xlsx" #"Output.xlsx"
-performance_date_string = "Sunday, 18 September 2022"
-configuration_date = "Sunday, 18 September 2022"
+date_string = "Sunday, 18 September 2022"
 
 # STATIC CONFIGURATION PARAMETERS
 input_folder = "InputFiles"
@@ -20,24 +19,28 @@ output_folder = "OutputFiles"
 if __name__ == '__main__':
     # READ DATA
     io = IO()
-    df = io.ReadPerformanceRecords(input_folder + "/" + input_filename, date=pd.to_datetime(performance_date_string))
+    df = io.ReadPerformanceRecords(input_folder + "/" + input_filename)
 
     # CREATE PERFORMANCE RECORDS FORM DATAFRAME
     performanceRecords = set()
     performanceTypes = set()
     for (colName, colData) in df.iteritems():
         performanceType = PerformanceType(colName.split(" - ")[1], colName.split(" - ")[0]) #PerformanceType(colData[1], colData[0])
-        performanceMetric = colData[performance_date_string]
-        if performanceMetric != "-":
-            performanceTypes.add(performanceType)
-            performanceRecords.add(PerformanceRecord(7, performanceMetric, performanceType))
+        try:
+            performanceMetric = colData[date_string]
+            if performanceMetric != "-":
+                performanceTypes.add(performanceType)
+                performanceRecords.add(PerformanceRecord(7, performanceMetric, performanceType))
+        except KeyError:
+            print("The Records sheet does not have a record on the date: " + date_string)
+            exit()
 
     # CREATE UTILITY FUNCTIONS
     utilityFunctionsSet = set()
     df2 = io.ReadUtilityFunctions(input_folder + "/" + input_filename)#, date=configuration_date)
     for (colName, colData) in df2.iteritems():
         try:
-            array = colData[performance_date_string].split(", ")
+            array = colData[date_string].split(", ")
         except:
             pass
         params = [float(i) for i in array[1:]]
@@ -58,8 +61,8 @@ if __name__ == '__main__':
     # CALCULATE SCORES
     calculator = Calculator()
     overall_score = calculator.CalculateOverallUtility(utilityFunctions, performanceRecords)
-    reportRecord = calculator.CalculateUtilityReport(utilityFunctions, performanceRecords, performance_date_string)
+    reportRecord = calculator.CalculateUtilityReport(utilityFunctions, performanceRecords, date_string)
 
     # SCORES TO EXCEL
     io.SavePerformanceReport(reportRecord, input_folder + "/" + input_filename, output_folder + "/" + output_filename)
-    print("The overall score for " + performance_date_string + " was: " + str(overall_score))
+    print("The overall score for " + date_string + " was: " + str(overall_score))

@@ -21,7 +21,7 @@ class IO:
             raise ValueError("Configuration tab of the input dataframe contains empty cells")
         return df
 
-    def ReadPerformanceRecords(self, fileName, date):
+    def ReadPerformanceRecords(self, fileName):
         df = self.ReadSheetWithSingleHeader(fileName, sheetName=_records_sheet_name)
         self.CheckThatNoUnallowedStringsExistInTheInput(df)
         return df
