@@ -8,8 +8,8 @@ from UtilityFunctions.UtilityFucntions import *
 import pandas as pd
 
 # DYNAMIC CONFIGURATION PARAMETERS
-input_filename = "WeekTracker.xlsx" #"Input.xlsx"
-output_filename = "WeekTracker.xlsx" #"Output.xlsx"
+input_filename = "WeekTracker.xlsx"
+output_filename = "WeekTracker.xlsx"
 date_string = "Sunday, 18 September 2022"
 
 # STATIC CONFIGURATION PARAMETERS
@@ -58,6 +58,8 @@ if __name__ == '__main__':
                 utilityFunctionsSet.add(DoubleLinearUtilityFunction(params, PerformanceType(names[1], names[0])))
             case "Scaling":
                 utilityFunctionsSet.add(ScalingUtilityFunction(params, PerformanceType(names[1], names[0])))
+            case "NormalCDF":
+                utilityFunctionsSet.add(NormalCDFUtilityFunction(params, PerformanceType(names[1], names[0])))
             case "-":
                 pass
             case _:
