@@ -67,5 +67,9 @@ The tool is run by performing the following steps in sequence:
 The result will then be saved to the "Output" folder
 
 
-
-
+## 2.1. Placing the input file in the "Input" folder
+T
+## 2.2. Specifying the input parameters at the beginning of the "main.py" script
+T
+## 2.3. Running the "main.py" script
+T
