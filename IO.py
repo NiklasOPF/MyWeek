@@ -23,8 +23,7 @@ class IO:
 
     def ReadPerformanceRecords(self, fileName, date):
         df = self.ReadSheetWithSingleHeader(fileName, sheetName=_records_sheet_name)
-        if df.isnull().values.any():
-            raise ValueError("Records tab of the input dataframe contains empty cells")
+        self.CheckThatNoUnallowedStringsExistInTheInput(df)
         return df
 
     ################################### WRITE FUNCTIONS ###################################
@@ -46,6 +45,20 @@ class IO:
         df.index.name = 'Date'
 
         self.WriteDataFrameToExcel(df, outputFileName, perormance_report_sheet_name)
+
+    ################################### DQ AND HELPER METHODS ###################################
+
+    def CheckThatNoUnallowedStringsExistInTheInput(self, df):
+        if df.isnull().values.any():
+            raise ValueError("Records tab of the input dataframe contains empty cells")
+        for rowIndex, row in df.iterrows():  # iterate over rows
+            for columnIndex, value in row.items():
+                if isinstance(value, str):
+                    if value != "-":
+                        raise ValueError("input filed at index [" + str(rowIndex) + ", " + str(
+                            columnIndex) + "] has the value: " + str(value) + ". This is not an allowed input.")
+
+
 
     ################################### OUTDATED METHODS ###################################
 
