@@ -69,13 +69,17 @@ The result will then be saved to the "Output" folder
 
 ## 2.1. Placing the input file in the "Input" folder
 The WeekTracker directory will have the following appearance:
+
 <img width="318" alt="image" src="https://user-images.githubusercontent.com/44125052/193299566-8bee00b6-4883-4673-89af-66e95f5bc086.png">
+
 * Please create the InputFiles directory in case it does not already exist
 * Please your input file in this directory
 
 ## 2.2. Specifying the input parameters at the beginning of the "main.py" script
 The beginning of the "main.py" file has the following appearance:
+
 <img width="479" alt="image" src="https://user-images.githubusercontent.com/44125052/193300809-78eb799d-99dd-45c8-9ae2-219d7279c738.png">
+
 * Please ensure that the parameters in the section "# DYNAMIC CONFIGURATION PARAMETERS" are appropriately specified
  * input_filename: This attribute should have the same name as the excel file you inserted to the input directory
  * output_filename: This attribute specifies the name that the output file will have. This can be whatever you like.
