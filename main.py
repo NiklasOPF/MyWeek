@@ -17,6 +17,12 @@ input_folder = "InputFiles"
 output_folder = "OutputFiles"
 
 if __name__ == '__main__':
+    # CONFIGURATION PARAMETER QUALITY CHECK
+    try:
+        a = pd.to_datetime(date_string)
+    except ValueError:
+        print("The string is not a date: " + date_string)
+
     # READ DATA
     io = IO()
     df = io.ReadPerformanceRecords(input_folder + "/" + input_filename)
