@@ -1,4 +1,7 @@
 import pandas as pd
+from os.path import exists
+
+import xlsxwriter as xlsxwriter
 
 _configuration_sheet_name = 'Configuration' # used to identify the excel sheet of a configuration.
 _records_sheet_name = 'Records' # used to identify the excel sheet of a configuration.
@@ -36,7 +39,13 @@ class IO:
     ################################### WRITE FUNCTIONS ###################################
 
     def WriteDataFrameToExcel(self, df, fileName, sheetname):
-        #TODO: first initiate a check if the file already exists. if not, then generate a new file
+        # If file does not exist, generate a new file and append all the base sheets
+        if not exists(fileName):
+            workbook = xlsxwriter.Workbook(fileName)
+            worksheet2 = workbook.add_worksheet(sheetname)
+            workbook.close()
+
+        # Write the selected sheet as output
         with pd.ExcelWriter(fileName, engine="openpyxl", mode="a", if_sheet_exists="replace") as writer:
             df.to_excel(writer, sheetname)
 
