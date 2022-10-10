@@ -4,6 +4,13 @@ _configuration_sheet_name = 'Configuration' # used to identify the excel sheet o
 _records_sheet_name = 'Records' # used to identify the excel sheet of a configuration.
 perormance_report_sheet_name = 'PerformanceReport' # Used to summarize the
 
+def is_number(s):
+    try:
+        float(s)
+        return True
+    except ValueError:
+        return False
+
 class IO:
     def __init__(self):
         self.a = 1
@@ -54,7 +61,7 @@ class IO:
         for rowIndex, row in df.iterrows():  # iterate over rows
             for columnIndex, value in row.items():
                 if isinstance(value, str):
-                    if value != "-":
+                    if value != "-"and not is_number(value):
                         raise ValueError("input filed at index [" + str(rowIndex) + ", " + str(
                             columnIndex) + "] has the value: " + str(value) + ". This is not an allowed input.")
 
