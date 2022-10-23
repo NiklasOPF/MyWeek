@@ -5,12 +5,13 @@ from PerformanceType import PerformanceType
 from UtilityFunctions.UtilityFunction import LinearUtilityFunction, UtilityFunction, DoubleLinearUtilityFunction, \
     ScalingUtilityFunction, NormalCDFUtilityFunction
 from UtilityFunctions.UtilityFucntions import *
+from GUI.GUI import *
 import pandas as pd
 
 # DYNAMIC CONFIGURATION PARAMETERS
-input_filename = "MyWeek.xlsx"
-output_filename = "MyWeek.xlsx"
-date_string = "Sunday, 18 September 2022"
+input_filename = "WeekTracker.xlsx"
+output_filename = "Output.xlsx"
+date_string = "Sunday, 16 October 2022"
 
 # STATIC CONFIGURATION PARAMETERS
 input_folder = "InputFiles"
@@ -18,6 +19,11 @@ output_folder = "OutputFiles"
 
 
 if __name__ == '__main__':
+
+    app = getGUI()
+    app.mainloop()
+
+
     # CONFIGURATION PARAMETER QUALITY CHECK
     try:
         a = pd.to_datetime(date_string)
