@@ -5,6 +5,6 @@ InputFiles/*
 __pycache__/
 OutputFiles/*
 .eggs/
-
+setup.py
 
 

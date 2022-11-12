@@ -14,15 +14,6 @@ def is_number(s):
     except ValueError:
         return False
 
-''''
-def try_parsing_date(dateString):
-    for fmt in ("%m/%d/%y", "%m/%d/%Y"):
-        try:
-            return pd.to_datetime(dateString, format=fmt)
-        except ValueError:
-            pass
-    raise ValueError('no valid date format found')
-'''
 class IO:
     def __init__(self):
         self.a = 1
