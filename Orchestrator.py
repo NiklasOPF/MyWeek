@@ -1,6 +1,6 @@
 import sys
 from Calculator import Calculator
-from IO import IO
+from IO_writer import IO
 from PerformanceRecord import PerformanceRecord
 from PerformanceType import PerformanceType
 from UtilityFunctions.UtilityFunction import LinearUtilityFunction, UtilityFunction, DoubleLinearUtilityFunction, \
@@ -13,9 +13,11 @@ import pandas as pd
 
 def InitiateCalculation(input_folder, input_filename, output_folder, output_filename, dateString):
 
+
+    date = pd.to_datetime(dateString, format="%m/%d/%Y")
     # CONFIGURATION PARAMETER QUALITY CHECK
     try:
-        date = pd.to_datetime(dateString, format="%d/%m/%Y")
+        date = pd.to_datetime(dateString, format="%m/%d/%Y")
     except ValueError:
         return "The string is not a date: " + dateString
 
@@ -44,23 +46,27 @@ def InitiateCalculation(input_folder, input_filename, output_folder, output_file
         for (colName, colData) in configurationDF.iteritems():
             try:
                 array = colData[date].split(", ")
+                params = [float(i) for i in array[1:]]
+                names = colName.split(" - ")
+                if names[0]=='Youtube':
+                    a=1
+                match array[0]:
+                    case "Linear":
+                        utilityFunctionsSet.add(LinearUtilityFunction(params, PerformanceType(names[1], names[0])))
+                    case "DoubleLinear":
+                        utilityFunctionsSet.add(
+                            DoubleLinearUtilityFunction(params, PerformanceType(names[1], names[0])))
+                    case "Scaling":
+                        utilityFunctionsSet.add(ScalingUtilityFunction(params, PerformanceType(names[1], names[0])))
+                    case "NormalCDF":
+                        utilityFunctionsSet.add(NormalCDFUtilityFunction(params, PerformanceType(names[1], names[0])))
+                    case "-":
+                        pass
+                    case _:
+                        raise NotImplementedError("No utility function of the specified type: '" + array[0] + "'")
             except:
                 pass
-            params = [float(i) for i in array[1:]]
-            names = colName.split(" - ")
-            match array[0]:
-                case "Linear":
-                    utilityFunctionsSet.add(LinearUtilityFunction(params, PerformanceType(names[1], names[0])))
-                case "DoubleLinear":
-                    utilityFunctionsSet.add(DoubleLinearUtilityFunction(params, PerformanceType(names[1], names[0])))
-                case "Scaling":
-                    utilityFunctionsSet.add(ScalingUtilityFunction(params, PerformanceType(names[1], names[0])))
-                case "NormalCDF":
-                    utilityFunctionsSet.add(NormalCDFUtilityFunction(params, PerformanceType(names[1], names[0])))
-                case "-":
-                    pass
-                case _:
-                    raise NotImplementedError("No utility function of the specified type: '" + array[0] +"'")
+
         utilityFunctions = UtilityFunctions(utilityFunctionsSet)
 
         # CALCULATE SCORES
@@ -72,4 +78,4 @@ def InitiateCalculation(input_folder, input_filename, output_folder, output_file
         io.SavePerformanceReport(reportRecord, input_folder + "/" + input_filename, output_folder + "/" + output_filename)
         return ("The overall score for " + dateString + " was: " + str(overall_score))
     except Exception as e:
-        return sys.exc_info()[0]
+        return e.args[0]

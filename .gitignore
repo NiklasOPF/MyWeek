@@ -4,7 +4,7 @@
 InputFiles/*
 __pycache__/
 OutputFiles/*
-
+.eggs/
 
 
 
