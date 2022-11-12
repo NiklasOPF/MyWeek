@@ -88,7 +88,7 @@ class App(customtkinter.CTk):
                                                    justify=tkinter.LEFT)
         self.label_5.grid(row=4, column=1, sticky="nwe", padx=15, pady=15)
 
-        self.date = customtkinter.CTkButton(master=self.frame_top,command=self.create_date_selection_window,text="Select date",fg_color=("#b2b4b8"),width=160,height=32,border_width=0,corner_radius=8)
+        self.date = customtkinter.CTkButton(master=self.frame_top,command=self.create_date_selection_window, text="Select date",fg_color=("#b2b4b8"),width=160,height=32,border_width=0,corner_radius=8)
         self.date.grid(row=4,column=2,pady=10)
 
         # ============ frame_bottom ============
@@ -150,7 +150,7 @@ class App(customtkinter.CTk):
 
         date_selection_window = customtkinter.CTk()
         date_selection_window.geometry(f"{WIDTH}x{HEIGHT}")
-        cal = Calendar(date_selection_window, selectmode="day", year=int(datetime.date.today().year), month=int(datetime.date.today().month), day=int(datetime.date.today().day))
+        cal = Calendar(date_selection_window, selectmode="day", year=int(datetime.date.today().year), month=int(datetime.date.today().month), day=int(datetime.date.today().day), date_pattern="mm/dd/yyyy")
         cal.pack()
         tkinter.Button(date_selection_window, text="Select date", command= lambda: self.insert_selected_date(cal, date_selection_window)).pack()
         date_selection_window.mainloop()
