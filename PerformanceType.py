@@ -3,6 +3,10 @@
 
 class PerformanceType:
     def __init__(self, name, category):
+        if name == "":
+            raise ValueError("The name of a performance type cannot be empty")
+        if category == "":
+            raise ValueError("The category of a performance type cannot be empty")
         self.name = name
         self.category = category
 
