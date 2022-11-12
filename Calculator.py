@@ -6,7 +6,10 @@ class Calculator:
         overall_score = 0
         for perfromanceRecord in performanceRecords:
             utility_function = utilityFunctions.GetUtilityFunction(perfromanceRecord.performance_type)
-            new_score = utility_function.GetUtility(perfromanceRecord.GetPerformanceMetric()) # TODO: Insert try-catch around this one
+            try:
+                new_score = utility_function.GetUtility(perfromanceRecord.GetPerformanceMetric())
+            except Exception as e:
+                raise NameError('Could not find a utility function of type: ' + perfromanceRecord.GetPerformanceType().GetName())
             overall_score = overall_score + new_score
         return overall_score
 
