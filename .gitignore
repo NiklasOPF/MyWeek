@@ -1,10 +1,10 @@
 .DS_Store
+setup.py
 .gitignore.swp
 .idea/
 InputFiles/*
 __pycache__/
 OutputFiles/*
 .eggs/
-setup.py
 
 
