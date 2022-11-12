@@ -72,10 +72,11 @@ def InitiateCalculation(input_folder, input_filename, output_folder, output_file
         # CALCULATE SCORES
         calculator = Calculator()
         overall_score = calculator.CalculateOverallUtility(utilityFunctions, performanceRecords)
-        reportRecord = calculator.CalculateUtilityReport(utilityFunctions, performanceRecords, dateString)
+        reportRecord = calculator.CalculateUtilityReport(utilityFunctions, performanceRecords, date)
 
         # SCORES TO EXCEL
         io.SavePerformanceReport(reportRecord, input_folder + "/" + input_filename, output_folder + "/" + output_filename)
         return ("The overall score for " + dateString + " was: " + str(overall_score))
     except Exception as e:
         return e.args[0]
+        #raise e
