@@ -1,6 +1,9 @@
 from abc import ABC, abstractmethod
+from typing import List
+
 import numpy as np
 from scipy.stats import norm
+import pydantic
 
 
 class UtilityFunction(ABC):
@@ -162,3 +165,82 @@ class NormalCDFUtilityFunction(UtilityFunction):
 
     def GetPerformanceType(self):
         return self.performanceType
+
+class Point:
+    x: float
+    y: float
+
+    def __init__(self, x : float, y : float):
+        self.x = x
+        self.y = y
+
+class Points(List): # TODO: perform implementation test
+    points: List[Point]
+    def isOrdered(self):
+        if len(self.points) == 0:
+            return True
+        lastPoint = self.points[0]
+        for point in range(1,len(self.points)):
+            if point.x <= lastPoint.x:
+                return False
+        return True
+
+    def getLen(self):
+        return len(self.points)
+    def __init__(self, points: List[Point]):
+        self.points=points
+
+class OrderedPoints(Points):
+    points = List[Point]
+
+    def __init__(self, points: List[Point]):
+        if not Points(points).isOrdered():
+            raise ValueError("input list is not ordered")
+        self.points = points
+
+    def getLen(self):
+        return len(self.points)
+
+    def getNeighbouringPoints(self, x: float): #TODO: Construct implementation test
+        if len(self.points) == 0:
+            return Points([None, None])
+        lastPoint = self.points[0]
+        if lastPoint.x > x:
+            return Points([np.nan, lastPoint])
+        for point in self.points:
+            if lastPoint.x <= x and point.x >= x:
+                return Points([lastPoint, point])
+        return Points([self.points[-1], np.nan])
+
+class PerformanceType:
+    performanceType: str
+
+
+class GenericLinearUtilityFunction(UtilityFunction):
+    points: Points
+    performanceType: PerformanceType
+    def __init__(self, points : Points, performanceType: PerformanceType):
+        if points.getLen() == 0:
+            raise ValueError("The list of points is empy")
+        if not points.isOrdered():
+            raise ValueError("The list of points is not ordered from lowest to highest x-value")
+        self.points = points
+        self.performanceType = performanceType
+
+    def GetUtility(self, x): # TODO: Construct implementation test
+        neighbours = self.points.getNeighbouringPoints(x)
+        if neighbours == []:
+            raise ValueError("The utility function has not been given any parameters")
+        if len(neighbours) == 1:
+            return neighbours[0].y
+        p0=neighbours[0]
+        p1=neighbours[1]
+        return p0.y + (x-p0.x)*(p1.y-p0.y)/(p1.x-p0.x)
+
+    def GetUtilityFunctionType(self):
+        return "GenericLinear"
+
+    def GetPerformanceType(self):
+        return self.performanceType
+
+a=1
