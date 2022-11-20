@@ -180,7 +180,7 @@ class Points(List): # TODO: perform implementation test
         if len(self.points) == 0:
             return True
         lastPoint = self.points[0]
-        for point in range(1,len(self.points)):
+        for point in self.points[1:]:
             if point.x <= lastPoint.x:
                 return False
         return True
@@ -203,14 +203,14 @@ class OrderedPoints(Points):
 
     def getNeighbouringPoints(self, x: float): #TODO: Construct implementation test
         if len(self.points) == 0:
-            return Points([None, None])
+            return Points([])
         lastPoint = self.points[0]
-        if lastPoint.x > x:
-            return Points([np.nan, lastPoint])
-        for point in self.points:
-            if lastPoint.x <= x and point.x >= x:
-                return Points([lastPoint, point])
-        return Points([self.points[-1], np.nan])
+        if lastPoint.x >= x:
+            return Points([lastPoint])
+        for point in self.points[1:]:
+            if point.x == x: return Points([point])
+            if lastPoint.x <= x and point.x >= x: return Points([lastPoint, point])
+        return Points([self.points[-1]])
 
 class PerformanceType:
     performanceType: str
@@ -220,7 +220,7 @@ class GenericLinearUtilityFunction(UtilityFunction):
     points: Points
     performanceType: PerformanceType
     def __init__(self, points : Points, performanceType: PerformanceType):
-        if points.getLen() == 0:
+        if points.points.__len__() == 0:
             raise ValueError("The list of points is empy")
         if not points.isOrdered():
             raise ValueError("The list of points is not ordered from lowest to highest x-value")
@@ -228,7 +228,9 @@ class GenericLinearUtilityFunction(UtilityFunction):
         self.performanceType = performanceType
 
     def GetUtility(self, x): # TODO: Construct implementation test
-        neighbours = self.points.getNeighbouringPoints(x)
+        if np.isnan(x):
+            raise ValueError("Input variable cannot be null")
+        neighbours = self.points.getNeighbouringPoints(x).points
         if neighbours == []:
             raise ValueError("The utility function has not been given any parameters")
         if len(neighbours) == 1:

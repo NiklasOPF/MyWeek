@@ -158,11 +158,11 @@ class TestNormalCDFUtilityFunction(TestCase):
 class TestGenericLinearUtilityFunction(TestCase):
 
     def test_initialization_with_no_inputs(self):
-        with self.assertRaises(ValueError):
+        with self.assertRaises(AttributeError):
             GenericLinearUtilityFunction([], "Test")
 
     def test_get_utility(self):
-        utilityFun1 = GenericLinearUtilityFunction(OrderedPoints([Point(3,5)]), "Test")
+        utilityFun1 = GenericLinearUtilityFunction(OrderedPoints([Point(3.0,5.0)]), "Test")
         with self.assertRaises(ValueError):
             utilityFun1.GetUtility(np.nan)
         self.assertEqual(utilityFun1.GetUtility(0), 5)
