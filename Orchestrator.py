@@ -4,7 +4,8 @@ from IO_writer import IO
 from PerformanceRecord import PerformanceRecord
 from PerformanceType import PerformanceType
 from UtilityFunctions.UtilityFunction import LinearUtilityFunction, UtilityFunction, DoubleLinearUtilityFunction, \
-    ScalingUtilityFunction, NormalCDFUtilityFunction
+    ScalingUtilityFunction, NormalCDFUtilityFunction, GenericLinearUtilityFunction, Points, OrderedPoints, \
+    ListToOrderedPoints
 from UtilityFunctions.UtilityFucntions import *
 import pandas as pd
 
@@ -48,8 +49,6 @@ def InitiateCalculation(input_folder, input_filename, output_folder, output_file
                 array = colData[date].split(", ")
                 params = [float(i) for i in array[1:]]
                 names = colName.split(" - ")
-                if names[0]=='Youtube':
-                    a=1
                 match array[0]:
                     case "Linear":
                         utilityFunctionsSet.add(LinearUtilityFunction(params, PerformanceType(names[1], names[0])))
@@ -60,6 +59,8 @@ def InitiateCalculation(input_folder, input_filename, output_folder, output_file
                         utilityFunctionsSet.add(ScalingUtilityFunction(params, PerformanceType(names[1], names[0])))
                     case "NormalCDF":
                         utilityFunctionsSet.add(NormalCDFUtilityFunction(params, PerformanceType(names[1], names[0])))
+                    case "GenericLinear":
+                        utilityFunctionsSet.add(GenericLinearUtilityFunction(ListToOrderedPoints(params), PerformanceType(names[1], names[0])))
                     case "-":
                         pass
                     case _:

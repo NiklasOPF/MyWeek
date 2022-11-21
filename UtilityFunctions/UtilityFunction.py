@@ -246,3 +246,17 @@ class GenericLinearUtilityFunction(UtilityFunction):
         return self.performanceType
 
 a=1
+
+def ListToOrderedPoints(listOfCoordinates : List):
+    if listOfCoordinates == None:
+        return None
+    if len(listOfCoordinates) %2==1:
+        raise ValueError("There must be an even number of coordinates")
+    #TODO: Make sure that all the inputs are int or float
+    l=[listOfCoordinates[i:i + 2] for i in range(0, len(listOfCoordinates), 2)]
+    points = []
+    for pair in l:
+        points.append(Point(pair[0], pair[1]))
+    # TODO: check that the list is ordered
+    # create the Orderedlist object
+    return OrderedPoints(points)
