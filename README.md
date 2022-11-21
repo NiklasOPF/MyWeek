@@ -1,20 +1,20 @@
 # Weeklify
 This tool is complementary to the dreamlinign template outlined here: https://niklasopf.github.io/
-It shifts focus away form the achievement of the long-term overarching goals that you are progressing towards adn redirects it to the small battles we all fight on a daily basis. By tracking your progression along a set of KPIs (Key Performance Indicators), it allows you to: 
+It shifts focus away form the attainment of the long-term overarching goals that you are progressing towards and redirects it to the small battles we all fight on a daily basis. By tracking your progression along a set of KPIs (Key Performance Indicators), it allows you to: 
 * Monitor your progress toward goals that you have set for yourself
 * Prioritize more effectively when it comes to where you spend your time
 
 # 1 Initial setup
-Whilst the wekly usage of the tool is extremely lightweight and fast, it does require some initial configuration before it can trck your progress.
+Whilst the wekly usage of the tool is extremely lightweight and fast, it does require some initial configuration before it can track your progress.
 ## 1.1. Defining your goals
-Keeping track of and maintaining your high-level objectives is most easily done with the dreamlining template. Once you have a clear view of the goaols you would like to pursue, you need to define KPIs for those goals. I would recomend to track something between 5-10 KPIs per week. A good KPI is:
+Keeping track of and maintaining your high-level objectives is most easily done with the dreamlining template. Once you have a clear view of the goals you would like to pursue, you need to define corresponding KPIs. I would recomend to track something between 5-10 KPIs per week. A good KPI is:
 * Agnostic to external effects
 * Easy to measure
 * Correlated to the long-term resuts you want to attain
 
 ## 1.2. Defining utility functions
 The tool uses utility fucntions to score your progress throughout a week. Utility functions need to be defined for the different KPIs that you have specified. 
-* The list of available utility functions can be found here: https://niklasopf.atlassian.net/l/cp/Upn7Fx1t
+* The list of available utility functions can be found here: https://niklasopf.atlassian.net/l/cp/hUyQa0JF
 
 ## 1.3. Formating the input file
 Once the KPIs and utility functions have been decided on, it is time to specify the input file. The input file has the following tabs: 
