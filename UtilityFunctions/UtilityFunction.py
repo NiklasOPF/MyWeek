@@ -5,6 +5,9 @@ import numpy as np
 from scipy.stats import norm
 import pydantic
 
+import Points
+from Points import Point
+
 
 class UtilityFunction(ABC):
     @abstractmethod
@@ -166,51 +169,6 @@ class NormalCDFUtilityFunction(UtilityFunction):
     def GetPerformanceType(self):
         return self.performanceType
 
-class Point:
-    x: float
-    y: float
-
-    def __init__(self, x : float, y : float):
-        self.x = x
-        self.y = y
-
-class Points(List): # TODO: perform implementation test
-    points: List[Point]
-    def isOrdered(self):
-        if len(self.points) == 0:
-            return True
-        lastPoint = self.points[0]
-        for point in self.points[1:]:
-            if point.x <= lastPoint.x:
-                return False
-        return True
-
-    def getLen(self):
-        return len(self.points)
-    def __init__(self, points: List[Point]):
-        self.points=points
-
-class OrderedPoints(Points):
-    points = List[Point]
-
-    def __init__(self, points: List[Point]):
-        if not Points(points).isOrdered():
-            raise ValueError("input list is not ordered")
-        self.points = points
-
-    def getLen(self):
-        return len(self.points)
-
-    def getNeighbouringPoints(self, x: float): #TODO: Construct implementation test
-        if len(self.points) == 0:
-            return Points([])
-        lastPoint = self.points[0]
-        if lastPoint.x >= x:
-            return Points([lastPoint])
-        for point in self.points[1:]:
-            if point.x == x: return Points([point])
-            if lastPoint.x <= x and point.x >= x: return Points([lastPoint, point])
-        return Points([self.points[-1]])
 
 class PerformanceType:
     performanceType: str
@@ -259,4 +217,4 @@ def ListToOrderedPoints(listOfCoordinates : List):
         points.append(Point(pair[0], pair[1]))
     # TODO: check that the list is ordered
     # create the Orderedlist object
-    return OrderedPoints(points)
+    return Points.OrderedPoints(points)
