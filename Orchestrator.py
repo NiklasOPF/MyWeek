@@ -4,8 +4,8 @@ from IO_writer import IO
 from PerformanceRecord import PerformanceRecord
 from PerformanceType import PerformanceType
 from UtilityFunctions.UtilityFunction import LinearUtilityFunction, UtilityFunction, DoubleLinearUtilityFunction, \
-    ScalingUtilityFunction, NormalCDFUtilityFunction, GenericLinearUtilityFunction, Points, OrderedPoints, \
-    ListToOrderedPoints
+    ScalingUtilityFunction, NormalCDFUtilityFunction, GenericLinearUtilityFunction
+from Points import ListToOrderedPoints
 from UtilityFunctions.UtilityFucntions import *
 import pandas as pd
 

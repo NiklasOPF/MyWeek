@@ -1,6 +1,6 @@
 from unittest import TestCase
 import numpy as np
-from Points import Point, Points, OrderedPoints
+from Points import Point, Points, OrderedPoints, ListToOrderedPoints
 
 
 class TestPoint(TestCase):
@@ -72,3 +72,17 @@ class TestOrderedPoints(TestCase):
         self.assertEqual(val3, OrderedPoints([Point(3, 3), Point(4, 0)]))
         self.assertEqual(val4, OrderedPoints([Point(4, 0)]))
 
+
+class TestListToOrderedPoints(TestCase):
+    def test_providingBadInputs(self):
+        with self.assertRaises(ValueError):
+            ListToOrderedPoints([1, 2, 3]) #uneven number of ponts
+        with self.assertRaises(ValueError):
+            ListToOrderedPoints([1, 2, "s", 4])
+        with self.assertRaises(ValueError):
+            ListToOrderedPoints([1, 2, True, 4])
+        with self.assertRaises(ValueError):
+            ListToOrderedPoints([1, 2, None, 4])
+        with self.assertRaises(ValueError):
+            ListToOrderedPoints([1, 2, np.nan, 4])
+        ListToOrderedPoints([1, 2, 3, 4])

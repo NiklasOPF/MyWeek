@@ -1,7 +1,7 @@
 import math
 from abc import ABC, abstractmethod
 from typing import List
-
+import numbers
 import numpy as np
 from scipy.stats import norm
 import pydantic
@@ -60,8 +60,9 @@ class OrderedPoints(Points):
     def getLen(self):
         return len(self.points)
 
+
     def getNeighbouringPoints(self, x: float):
-        if (type(x) is not float) and (type(x) is not int):
+        if not isinstance(x, numbers.Number) or isinstance(x, bool):
             raise ValueError("the x variable must be a number")
         if x == None or math.isnan(x):
             raise ValueError("the x variable cannot be null")
@@ -74,3 +75,22 @@ class OrderedPoints(Points):
             if point.x == x: return Points([point])
             if lastPoint.x <= x and point.x >= x: return Points([lastPoint, point])
         return Points([self.points[-1]])
+
+
+def ListToOrderedPoints(listOfCoordinates : List):
+    if listOfCoordinates == None:
+        return None
+    if len(listOfCoordinates) %2==1:
+        raise ValueError("There must be an even number of coordinates")
+    for i in range(len(listOfCoordinates)):
+        if not isinstance(listOfCoordinates[i], numbers.Number) or isinstance(listOfCoordinates[i], bool):
+            raise ValueError("one of the input elements is not a number")
+        if np.isnan(listOfCoordinates[i]):
+            raise ValueError("one of the input elements is null")
+    l=[listOfCoordinates[i:i + 2] for i in range(0, len(listOfCoordinates), 2)]
+    points = []
+    for pair in l:
+        points.append(Point(pair[0], pair[1]))
+    if not Points(points).isOrdered():
+        raise ValueError("Input points are not ordered by ascending x-value")
+    return OrderedPoints(points)

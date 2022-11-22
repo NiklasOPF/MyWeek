@@ -1,12 +1,9 @@
 from abc import ABC, abstractmethod
-from typing import List
 
 import numpy as np
 from scipy.stats import norm
-import pydantic
 
 import Points
-from Points import Point
 
 
 class UtilityFunction(ABC):
@@ -185,7 +182,7 @@ class GenericLinearUtilityFunction(UtilityFunction):
         self.points = points
         self.performanceType = performanceType
 
-    def GetUtility(self, x): # TODO: Construct implementation test
+    def GetUtility(self, x):
         if np.isnan(x):
             raise ValueError("Input variable cannot be null")
         neighbours = self.points.getNeighbouringPoints(x).points
@@ -205,16 +202,3 @@ class GenericLinearUtilityFunction(UtilityFunction):
 
 a=1
 
-def ListToOrderedPoints(listOfCoordinates : List):
-    if listOfCoordinates == None:
-        return None
-    if len(listOfCoordinates) %2==1:
-        raise ValueError("There must be an even number of coordinates")
-    #TODO: Make sure that all the inputs are int or float
-    l=[listOfCoordinates[i:i + 2] for i in range(0, len(listOfCoordinates), 2)]
-    points = []
-    for pair in l:
-        points.append(Point(pair[0], pair[1]))
-    # TODO: check that the list is ordered
-    # create the Orderedlist object
-    return Points.OrderedPoints(points)
