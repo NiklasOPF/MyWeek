@@ -1,6 +1,9 @@
 from abc import ABC, abstractmethod
+
 import numpy as np
 from scipy.stats import norm
+
+import Points
 
 
 class UtilityFunction(ABC):
@@ -162,3 +165,40 @@ class NormalCDFUtilityFunction(UtilityFunction):
 
     def GetPerformanceType(self):
         return self.performanceType
+
+
+class PerformanceType:
+    performanceType: str
+
+
+class GenericLinearUtilityFunction(UtilityFunction):
+    points: Points
+    performanceType: PerformanceType
+    def __init__(self, points : Points, performanceType: PerformanceType):
+        if points.points.__len__() == 0:
+            raise ValueError("The list of points is empy")
+        if not points.isOrdered():
+            raise ValueError("The list of points is not ordered from lowest to highest x-value")
+        self.points = points
+        self.performanceType = performanceType
+
+    def GetUtility(self, x):
+        if np.isnan(x):
+            raise ValueError("Input variable cannot be null")
+        neighbours = self.points.getNeighbouringPoints(x).points
+        if neighbours == []:
+            raise ValueError("The utility function has not been given any parameters")
+        if len(neighbours) == 1:
+            return neighbours[0].y
+        p0=neighbours[0]
+        p1=neighbours[1]
+        return p0.y + (x-p0.x)*(p1.y-p0.y)/(p1.x-p0.x)
+
+    def GetUtilityFunctionType(self):
+        return "GenericLinear"
+
+    def GetPerformanceType(self):
+        return self.performanceType
+
+a=1
+

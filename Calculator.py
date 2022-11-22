@@ -9,7 +9,7 @@ class Calculator:
             try:
                 new_score = utility_function.GetUtility(perfromanceRecord.GetPerformanceMetric())
             except Exception as e:
-                raise NameError('Could not find a utility function of type: ' + perfromanceRecord.GetPerformanceType().GetName())
+                raise e
             overall_score = overall_score + new_score
         return overall_score
 

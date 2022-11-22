@@ -1,6 +1,6 @@
 from unittest import TestCase
 from UtilityFunctions.UtilityFunction import NormalCDFUtilityFunction, DoubleLinearUtilityFunction, \
-    LinearUtilityFunction, ScalingUtilityFunction
+    LinearUtilityFunction, ScalingUtilityFunction, GenericLinearUtilityFunction, Point, OrderedPoints, Points
 import numpy as np
 
 
@@ -150,3 +150,36 @@ class TestNormalCDFUtilityFunction(TestCase):
         self.assertEqual(utilityFun.GetUtility(3), 2.5016211752822306)
         self.assertEqual(utilityFun.GetUtility(4.5), 3.443504766532315) #slightly smaller than 2.5 + (2.5 / 2) = 3.75
         self.assertEqual(utilityFun.GetUtility(1000000000), 5)
+
+
+
+
+
+class TestGenericLinearUtilityFunction(TestCase):
+
+    def test_initialization_with_no_inputs(self):
+        with self.assertRaises(AttributeError):
+            GenericLinearUtilityFunction([], "Test")
+
+    def test_get_utility(self):
+        utilityFun1 = GenericLinearUtilityFunction(OrderedPoints([Point(3.0,5.0)]), "Test")
+        with self.assertRaises(ValueError):
+            utilityFun1.GetUtility(np.nan)
+        self.assertEqual(utilityFun1.GetUtility(0), 5)
+        self.assertEqual(utilityFun1.GetUtility(3), 5)
+        self.assertEqual(utilityFun1.GetUtility(10), 5)
+
+        utilityFun2 = GenericLinearUtilityFunction(OrderedPoints([Point(3,5), Point (5,7)]), "Test")
+        with self.assertRaises(ValueError):
+            utilityFun2.GetUtility(np.nan)
+        self.assertEqual(utilityFun2.GetUtility(0), 5)
+        self.assertEqual(utilityFun2.GetUtility(3), 5)
+        self.assertEqual(utilityFun2.GetUtility(4), 6)
+        self.assertEqual(utilityFun2.GetUtility(4.5), 6.5)
+        self.assertEqual(utilityFun2.GetUtility(5), 7)
+        self.assertEqual(utilityFun2.GetUtility(8), 7)
+        self.assertEqual(utilityFun2.GetUtility(10), 7)
+        self.assertEqual(utilityFun2.GetUtility(1000000000), 7)
+
+        with self.assertRaises(ValueError):
+            utilityFun3 = GenericLinearUtilityFunction(OrderedPoints([Point (5,7), Point(3,5)]), "Test")
